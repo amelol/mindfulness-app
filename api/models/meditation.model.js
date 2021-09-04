@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// const Rating = require("../models/rating.model");
+const Like = require("../models/like.model");
 
 const meditationSchema = new Schema(
   {
@@ -19,35 +19,41 @@ const meditationSchema = new Schema(
     },
     image: {
       type: String,
-      default:
-        "default-image.jpeg",
+      default: "default-image.jpeg",
     },
     duration: {
       type: Number,
       required: "duration is required",
     },
-
+    keyWords: {
+      type: [String],
+      default: [],
+      required: "at least one key word is required",
+    },
+    type: {
+      type: [String],
+      default: [],
+      required: "type is required",
+    },
+    views: {
+      type: Number,
+      default: 0,
+    },
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    // keyWords: {
-    //   type: [String],
-    //   default: [],
-    //   required: "at least one key word is required",
-    // },
   },
   { timestamps: true }
 );
 
-// recipeSchema.virtual("ratings", {
-//   ref: "Rating",
-//   localField: "_id",
-//   foreignField: "recipe",
-//   justOne: false,
-// });
+recipeSchema.virtual("likes", {
+  ref: "Like",
+  localField: "_id",
+  foreignField: "meditation",
+  justOne: false,
+});
 
-//anadir virtual de valoraciones y calcular media
 
 const Meditation = mongoose.model("Medidation", meditationSchema);
 module.exports.Meditation = Meditation;

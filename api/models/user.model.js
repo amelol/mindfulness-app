@@ -11,9 +11,6 @@ const userSchema = new Schema(
       type: String,
       required: "User name is required",
     },
-    avatar: {
-      type: String,
-    },
     email: {
       unique: true,
       type: String,
@@ -24,6 +21,9 @@ const userSchema = new Schema(
       type: String,
       required: "A valid password is required",
       match: [PASSWORD_PATTERN, "the password is invalid"],
+    },    
+    avatar: {
+      type: String,
     },
     author: {
       type: Boolean,
@@ -42,7 +42,6 @@ const userSchema = new Schema(
         delete ret._id;
         delete ret.__v;
         delete ret.password;
-
         return ret;
       },
     },

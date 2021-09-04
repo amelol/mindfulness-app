@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// const Rating = require("../models/rating.model");
+const Comment = require("../models/comment.model");
 
 const articleSchema = new Schema(
   {
@@ -28,18 +28,26 @@ const articleSchema = new Schema(
       default: [],
       required: "at least one key word is required",
     },
+    type: {
+      type: [String],
+      default: [],
+      required: "type is required",
+    },
+    views: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
 
-// recipeSchema.virtual("ratings", {
-//   ref: "Rating",
-//   localField: "_id",
-//   foreignField: "recipe",
-//   justOne: false,
-// });
+articleSchema.virtual("comments", {
+  ref: "Comment",
+  localField: "_id",
+  foreignField: "article",
+  justOne: false,
+});
 
-//anadir virtual de valoraciones y calcular media
 
 const Article = mongoose.model("Article", articleSchema);
 module.exports.Article = Article;
