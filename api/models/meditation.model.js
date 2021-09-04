@@ -44,10 +44,21 @@ const meditationSchema = new Schema(
       ref: "User",
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform: (doc, ret) => {
+        ret.id = doc._id;
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+      },
+    },
+  }
 );
 
-recipeSchema.virtual("likes", {
+meditationSchema.virtual("likes", {
   ref: "Like",
   localField: "_id",
   foreignField: "meditation",
@@ -56,5 +67,5 @@ recipeSchema.virtual("likes", {
 
 
 const Meditation = mongoose.model("Medidation", meditationSchema);
-module.exports.Meditation = Meditation;
+module.exports = Meditation;
 

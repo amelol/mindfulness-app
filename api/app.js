@@ -3,6 +3,14 @@ const express = require("express");
 
 const app = express();
 
+//Middlewares
+app.use(express.json()); //le indicamos que formato queremos recibir
+
+// Routes
+const routes = require("./config/routes.config");
+app.use("/api", routes);
+
+// Error handling
 app.use((req, res, next) => next(createError(404, "Route not found")))
 
 app.use((error, req, res, next) => {

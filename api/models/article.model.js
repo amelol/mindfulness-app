@@ -38,7 +38,18 @@ const articleSchema = new Schema(
       default: 0,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform: (doc, ret) => {
+        ret.id = doc._id;
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+      },
+    },
+  }
 );
 
 articleSchema.virtual("comments", {
@@ -48,6 +59,5 @@ articleSchema.virtual("comments", {
   justOne: false,
 });
 
-
 const Article = mongoose.model("Article", articleSchema);
-module.exports.Article = Article;
+module.exports = Article;
