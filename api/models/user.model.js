@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const EMAIL_PATTERN =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const PASSWORD_PATTERN = /^.{8,}$/;
+const bcrypt = require("bcrypt");
 
 const userSchema = new Schema(
   {
@@ -21,22 +25,20 @@ const userSchema = new Schema(
       type: String,
       required: "A valid password is required",
       match: [PASSWORD_PATTERN, "the password is invalid"],
-    },    
+    },
     avatar: {
       type: String,
     },
-    author: {
-      type: Boolean,
-      default: false,
-    },
-    admin: {
-      type: Boolean,
-      default: false,
+    role: {
+      type: String,
+      enum: ["Admin", "Author", "Basic"],
+      default: "Basic"
     },
   },
   {
     timestamps: true,
     toJSON: {
+      virtuals: true,
       transform: (doc, ret) => {
         ret.id = doc._id;
         delete ret._id;
@@ -58,6 +60,9 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", function (next) {
+  if (this.email === "olha.amielina@gmail.com"){
+    this.role = "Admin"
+  }
   if (this.isModified("password")) {
     bcrypt.hash(this.password, 10).then((hash) => {
       this.password = hash;

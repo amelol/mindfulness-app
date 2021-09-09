@@ -9,4 +9,8 @@ router.get("/");
 router.get("/articles", articles.list);
 router.get("/meditations", meditations.list);
 
+router.get("/articles/:id", articles.detail);
+
+router.get("/users", users.list);
+
 module.exports = router;

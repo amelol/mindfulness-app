@@ -5,3 +5,7 @@ module.exports.list = (req, res, next) => {
     .then((meditations) => res.json(meditations))
     .catch((error) => next(error));
 };
+
+module.exports.detail = (req, res, next) => {
+  res.json(req.meditation);
+};

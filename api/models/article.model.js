@@ -29,14 +29,17 @@ const articleSchema = new Schema(
       required: "at least one key word is required",
     },
     type: {
-      type: [String],
-      default: [],
+      type: String,
+      enum: ["Meditation", "Mindfulness", "Sleep", "Stress"],
       required: "type is required",
     },
     views: {
       type: Number,
       default: 0,
     },
+    date: {
+      type: Date
+    }
   },
   {
     timestamps: true,
