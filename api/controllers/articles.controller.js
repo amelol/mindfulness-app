@@ -2,13 +2,24 @@ const createError = require("http-errors");
 const Article = require("../models/article.model");
 
 module.exports.list = (req, res, next) => {
-  Article.find()
+  const { search } = req.query;
+  let criterial = {};
+  if (search) {
+    criterial = {
+      $or: [
+        { title: new RegExp(search, "i") },
+        { summary: new RegExp(search, "i") },
+        { keywords: new RegExp(search, "i") },
+      ],
+    };
+  }
+  Article.find(criterial)
     .then((articles) => res.json(articles))
     .catch((error) => next(error));
 };
 
 module.exports.detail = (req, res, next) => {
-  Article.findById(req.params.id)
+  Article.findByIdAndUpdate(req.params.id, { $inc: { views: 1 }}, { new: true})
     .then((article) => {
       if (!article) {
         next(createError(404, "Article not found"));
@@ -43,7 +54,6 @@ module.exports.edit = (req, res, next) => {
     new: true,
     runValidators: true,
   })
-    // aqui realmente tengo que poner new true si utilizo patch?
     .then((article) => {
       if (!article) {
         next(createError(404, "Article not found"))

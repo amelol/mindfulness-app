@@ -37,9 +37,6 @@ const articleSchema = new Schema(
       type: Number,
       default: 0,
     },
-    date: {
-      type: Date
-    }
   },
   {
     timestamps: true,

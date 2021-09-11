@@ -8,8 +8,8 @@ require("../config/db.config");
 
 const keyWordsObj = {
   1: ["meditation", "mindfullnes"],
-  2: ["stress", "breath"],
-  3: ["yoga", "pilates"],
+  2: ["stress", "anxiety", "breath"],
+  3: ["yoga", "pilates", "wellness", "health"],
 };
 
 const articleTypes = ["Meditation", "Mindfulness", "Sleep", "Stress"];
@@ -68,7 +68,7 @@ mongoose.connection.once("open", () => {
           views: Math.floor(Math.random() * 200),
           type: articleTypes[Math.floor(Math.random() * articleTypes.length)],
           keyWords: keyWordsObj[Math.floor(Math.random() * 3) + 1],
-          date: faker.date.past(),
+          createdAt: faker.date.past(),
         });
         articles.push(article.save());
       }
@@ -87,7 +87,7 @@ mongoose.connection.once("open", () => {
               keyWords: keyWordsObj[Math.floor(Math.random() * 3) + 1],
               views: Math.floor(Math.random() * 200),
               author: authors[Math.floor(Math.random() * authors.length)].id,
-              date: faker.date.past(),
+              createdAt: faker.date.past(),
             });
             meditations.push(meditation.save());
           }

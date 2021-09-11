@@ -1,13 +1,29 @@
+const createError = require("http-errors");
 const Meditation = require("../models/meditation.model");
 
 module.exports.list = (req, res, next) => {
-  Meditation.find()
+  const { search } = req.query;
+  let criterial = {};
+  if (search) {
+    criterial = {
+      $or: [
+        { title: new RegExp(search, "i") },
+        { summary: new RegExp(search, "i") },
+        { keywords: new RegExp(search, "i") },
+      ],
+    };
+  }
+  Meditation.find(criterial)
     .then((meditations) => res.json(meditations))
     .catch((error) => next(error));
 };
 
 module.exports.detail = (req, res, next) => {
-  Meditation.findById(req.params.id)
+  Meditation.findByIdAndUpdate(
+    req.params.id,
+    { $inc: { views: 1 } },
+    { new: true }
+  )
     .then((meditation) => {
       if (!meditation) {
         next(createError(404, "Meditation not found"));
@@ -42,7 +58,6 @@ module.exports.edit = (req, res, next) => {
     new: true,
     runValidators: true,
   })
-    // aqui realmente tengo que poner new true si utilizo patch?
     .then((meditation) => {
       if (!meditation) {
         next(createError(404, "Meditation not found"));
