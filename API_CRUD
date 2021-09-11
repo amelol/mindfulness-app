@@ -1,0 +1,24 @@
+POST /users -> crear usuario
+POST /login -> login
+POST /logout
+GET /profile -> obtener usuario req.user
+PATCH /profile -> editar usuario req.user
+
+GET /articles -> listado articulos ordenados por views
+GET /meditations -> listado meditaciones ordenados por views
+
+GET /articles/:id -> buscar articulo y views +1 y devolverlo
+GET /meditations/:id -> buscar meditation, views+1, devolverlo
+
+POST /articles -> crear articulo 
+POST /meditations -> crear meditacion
+
+DELETE /articles/:id -> borrar articulo
+DELETE /meditations/:id -> borrar meditacion
+
+PATCH /articles/:id -> editar articulo
+PATCH /meditations/:id -> editar meditacion
+
+POST /meditations/:id/like -> create or delete like for meditation
+POST /articles/:id/comments -> crear comentario para articulo
+DELETE /articles/:id/comments/:id -> borrar comentario
