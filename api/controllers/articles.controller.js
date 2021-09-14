@@ -7,9 +7,10 @@ module.exports.list = (req, res, next) => {
   if (search) {
     criterial = {
       $or: [
-        { title: new RegExp(search, "i") },
-        { summary: new RegExp(search, "i") },
-        { keywords: new RegExp(search, "i") },
+        // { title: new RegExp(search, "i") },
+        // { summary: new RegExp(search, "i") },
+        // { keywords: new RegExp(search, "i") },
+        { type: new RegExp(search, "i") },
       ],
     };
   }

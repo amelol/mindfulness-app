@@ -3,12 +3,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 require("./config/db.config");
+const cors = require("./config/cors.config");
 
 const app = express();
 
 //Middlewares
 app.use(logger("dev"));
+app.use(cors);
 app.use(express.json()); //le indicamos que formato queremos recibir
+
 
 // Routes
 const routes = require("./config/routes.config");
