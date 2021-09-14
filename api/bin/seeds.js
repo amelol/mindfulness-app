@@ -7,12 +7,13 @@ const faker = require("faker");
 require("../config/db.config");
 
 const keyWordsObj = {
-  1: ["meditation", "mindfullnes"],
-  2: ["stress", "anxiety", "breath"],
-  3: ["yoga", "pilates", "wellness", "health"],
+  1: ["meditation", "meditation techniques", "benefits of meditation"],
+  2: ["stress", "anxiety", "anger"],
+  3: ["mindfullnes", "mental health"],
 };
 
 const articleTypes = ["Meditation", "Mindfulness", "Sleep", "Stress"];
+
 const meditationTypes = [
   "Meditation for beginners",
   "Short meditation",
@@ -20,6 +21,8 @@ const meditationTypes = [
   "Morning meditation",
   "Gratitude meditation",
   "Anxiety relief meditation",
+  "Meditation for positivity",
+  "Walking meditation"
 ];
 
 mongoose.connection.once("open", () => {
@@ -69,11 +72,17 @@ mongoose.connection.once("open", () => {
           type: articleTypes[Math.floor(Math.random() * articleTypes.length)],
           keyWords: keyWordsObj[Math.floor(Math.random() * 3) + 1],
           createdAt: faker.date.past(),
+          minutesRead: Math.floor(Math.random() * 90) + 1
         });
         articles.push(article.save());
       }
       return Promise.all(articles)
-      .then((articles) => {
+        .then((articleData) => {
+          console.info(
+            `Successfully created ${articleData.length} articles`
+          );
+        })
+        .then((articles) => {
           const meditations = [];
           for (let i = 0; i < 10; i++) {
             const meditation = new Meditation({
@@ -91,12 +100,12 @@ mongoose.connection.once("open", () => {
             });
             meditations.push(meditation.save());
           }
-          return Promise.all(meditations).then(meditationData => {
+          return Promise.all(meditations).then((meditationData) => {
             console.info(
               `Successfully created ${meditationData.length} meditations`
             );
           });
-      });
+        });
     })
     .catch((error) => console.error("An error ocurred running seeds", error))
     .then(() => mongoose.disconnect());

@@ -5,8 +5,9 @@ const logger = require("morgan");
 require("./config/db.config");
 
 const app = express();
-app.use(logger("dev"))
+
 //Middlewares
+app.use(logger("dev"));
 app.use(express.json()); //le indicamos que formato queremos recibir
 
 // Routes
@@ -24,6 +25,11 @@ app.use((error, req, res, next) => {
   } else if (!error.status) {
     error = createError(500, error);
   }
+
+  if (error.status >= 500) {
+    console.error(error);
+  }
+  
   
   const data = {};
   data.message = error.message;

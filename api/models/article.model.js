@@ -37,6 +37,11 @@ const articleSchema = new Schema(
       type: Number,
       default: 0,
     },
+    minutesRead: {
+      type: Number,
+      default: 5,
+      required: "add an estimate of how many minutes it takes to read your article",
+    },
   },
   {
     timestamps: true,

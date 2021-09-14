@@ -35,14 +35,8 @@ module.exports.detail = (req, res, next) => {
 };
 
 module.exports.delete = (req, res, next) => {
-  Meditation.findByIdAndDelete(req.params.id)
-    .then((meditation) => {
-      if (!meditation) {
-        next(createError(404, "Meditation not found"));
-      } else {
-        res.status(204).send();
-      }
-    })
+  Meditation.deleteOne({ _id: req.meditation.id })
+    .then(() => res.status(204).send())
     .catch((error) => next(error));
 };
 
@@ -54,16 +48,10 @@ module.exports.create = (req, res, next) => {
 
 module.exports.edit = (req, res, next) => {
   const data = ({ title, summary, image, duration, keywords, type } = req.body);
-  Meditation.findByIdAndUpdate(req.params.id, data, {
-    new: true,
-    runValidators: true,
-  })
-    .then((meditation) => {
-      if (!meditation) {
-        next(createError(404, "Meditation not found"));
-      } else {
-        res.json(meditation);
-      }
-    })
+  const meditation = req.meditation;
+  Object.assign(meditation, data);
+  meditation
+    .save()
+    .then((meditation) => res.json(meditation))
     .catch((error) => next(error));
 };

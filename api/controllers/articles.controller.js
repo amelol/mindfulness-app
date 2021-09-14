@@ -31,14 +31,8 @@ module.exports.detail = (req, res, next) => {
 };
 
 module.exports.delete = (req, res, next) => {
-  Article.findByIdAndDelete(req.params.id)
-    .then((article) => {
-      if (!article) {
-        next(createError(404, "Article not found"));
-      } else {
-        res.status(204).send();
-      }
-    })
+  Article.deleteOne({ _id: req.article.id })
+    .then(() => res.status(204).send())
     .catch((error) => next(error));
 };
 
@@ -50,16 +44,10 @@ module.exports.create = (req, res, next) => {
 
 module.exports.edit = (req, res, next) => {
   const data = { title, summary, content, keywords, type} = req.body;
-  Article.findByIdAndUpdate(req.params.id, data, {
-    new: true,
-    runValidators: true,
-  })
-    .then((article) => {
-      if (!article) {
-        next(createError(404, "Article not found"))
-      } else {
-        res.json(article);
-      }
-    })
-    .catch((error) => next(error));
+  const article = req.article;
+  Object.assign(article, data);
+  article
+    .save()
+    .then((article) => res.json(article))
+    .catch((error) => next(error))
 };
