@@ -1,6 +1,6 @@
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light fied-top">
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
           Mindfulness app
