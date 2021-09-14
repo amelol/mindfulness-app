@@ -1,8 +1,8 @@
 import http from './base-api-service';
 
-const list = () => http.get('/articles');
+const list = (search) => http.get('/articles', {params: {search}});
 
-const service = {
-  list
+const articlesService = {
+  list,
 };
-export default service;
+export default articlesService;
