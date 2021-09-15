@@ -59,17 +59,21 @@ function ArticleList({ category, limit }) {
                 </div>
               </div>
 
-              <ul className="list-group list-group-horizontal m-3">
+              <div className="list-group list-group m-3">
                 {articles[category].map((article) => {
                   return (
-                    <li key={article.id} className="list-group-item col-4">
+                    <a
+                      key={article.id}
+                      className="list-group-item col-4 list-group-item-action"
+                      href={`/articles/${article.id}`}
+                    >
                       <div className="fw-bold">{article.title}</div>
                       <p>keywords</p>
                       <p>X minutes read</p>
-                    </li>
+                    </a>
                   );
                 })}
-              </ul>
+              </div>
             </div>
           );
         })}
