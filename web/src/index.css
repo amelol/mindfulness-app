@@ -6,6 +6,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: #393E46;
 }
 
 code {
@@ -13,8 +15,27 @@ code {
     monospace;
 }
 
+header {
+  background-color: #EEEEEE !important;
+}
+
 footer {
-  padding-top: 10px
+  padding-top: 10px;
+  color: #393E46 !important;
+  background-color: #EEEEEE;
+}
+
+footer a, .fa-search, .article-title {
+  text-decoration: none;
+  color: #393E46;
+}
+
+footer a:hover {
+  color: #393E46;
+}
+
+.fa-search:hover{
+  color: #393E46;
 }
 
 footer .container {
@@ -38,4 +59,13 @@ footer .card-title {
 
 .fa-search, .fa-file-text-o, .fa-headphones, .fa-user {
   font-size: 25px;
+}
+
+.article-type, .more-button, .section-name {
+  color: #00ADB5;
+}
+
+
+.articles-list:hover {
+  background-color: #AAD8D3; 
 }

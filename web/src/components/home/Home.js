@@ -1,9 +1,11 @@
-import ArticleList from "../articles/article-list/ArticleList";
+import TopArticles from "../articles/top-articles/TopArticles";
+
 
 function Home() {
   return (
     <>
-      <section className="home-intro">
+      <section className="home-intro mb-1">
+      <h2 className="ms-3 section-name">Getting started</h2>
         <div className="row row-cols-1 row-cols-md-3 g-4 mx-1">
           <div className="col">
             <div className="card h-100">
@@ -39,7 +41,7 @@ function Home() {
         </div>
       </section>
       <section className="home-articles">
-        <ArticleList limit={3} />
+        <TopArticles />
       </section>
       <section className="home-meditations">aqui va meditations list</section>
     </>
