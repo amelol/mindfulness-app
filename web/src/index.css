@@ -25,12 +25,16 @@ footer {
   background-color: #EEEEEE;
 }
 
-footer a, .fa-search, .article-title {
+footer a, .fa-search, .article-title, .fa-times {
   text-decoration: none;
   color: #393E46;
 }
 
 footer a:hover {
+  color: #393E46;
+}
+
+.fa-times:hover {
   color: #393E46;
 }
 
@@ -54,14 +58,15 @@ footer .card-title {
 }
 
 .app-logo {
-  height: 50px;
+  height: 45px;
+  margin: 10px 0;
 }
 
 .fa-search, .fa-file-text-o, .fa-headphones, .fa-user {
   font-size: 25px;
 }
 
-.article-type, .more-button, .section-name {
+.article-type, .more-button, .section-name, .article-detail-title {
   color: #00ADB5;
 }
 

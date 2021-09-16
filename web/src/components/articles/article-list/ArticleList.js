@@ -1,19 +1,16 @@
 import articlesService from "../../../services/articles-service";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function ArticleList({ category, limit }) {
+function ArticleList({ category, limit, tops }) {
   const location = useLocation();
   const [state, setState] = useState({ articles: {}, isLoading: true });
-  const [fetch, handleFetch] = useState(false);
-
-  const fetchArticles = useCallback(() => handleFetch(!fetch), [fetch]);
 
   useEffect(() => {
     let isMounted = true;
     const query = new URLSearchParams(location.search);
     articlesService
-      .list(category || query.get("category"))
+      .list(category || query.get("category"), tops)
       .then((articles) => {
         if (isMounted) {
           limit = query.has("limit") ? query.get("limit") : limit;
@@ -32,10 +29,10 @@ function ArticleList({ category, limit }) {
       })
       .catch((error) => {
         setState({ isLoading: false, articles: {} });
-        console.error(error);
+        console.error(error); //aqui estaria bien hacer una alerta
       });
     return () => (isMounted = false);
-  }, [fetch, limit, location]);
+  }, [limit, location, tops]);
 
   const { articles, isLoading } = state;
 
@@ -53,7 +50,7 @@ function ArticleList({ category, limit }) {
               <div className="col d-flex justify-content-end">
                 <Link
                   role="button"
-                  to={`/articles?category=${category}&limit=`}
+                  exact="true" to={`/articles?category=${category}&limit=`}
                   className="btn btn-link more-button"
                 >
                   More <i className="fa fa-angle-right" aria-hidden="true" />
@@ -64,17 +61,18 @@ function ArticleList({ category, limit }) {
             <div className="list-group list-group m-3">
               {articles[category].map((article) => {
                 return (
-                  <a
+                  <Link
                     key={article.id}
                     className="list-group-item col-4 list-group-item-action articles-list"
-                    href={`/articles/${article.id}`}
+                    exact="true"
+                    to={`/articles/${article.id}`}
                   >
                     <div className="fw-bold article-title">{article.title}</div>
                     <p>Keywords: {article.keyWords}</p>
                     <small className="text-muted">
                       {article.minutesRead} minutes read
                     </small>
-                  </a>
+                  </Link>
                 );
               })}
             </div>
@@ -87,6 +85,7 @@ function ArticleList({ category, limit }) {
 
 ArticleList.defaultProps = {
   limit: 3,
+  tops: false
 };
 
 export default ArticleList;

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router";
 import articlesService from "../../../services/articles-service";
+import Moment from "react-moment";
 
 function ArticleDetail({
   title,
@@ -15,7 +16,7 @@ function ArticleDetail({
 
   useEffect(() => {
     let isMounted = true;
-    articlesService.details(id).then((article) => {
+    articlesService.detail(id).then((article) => {
       if (isMounted) {
         setArticle(article);
       }
@@ -23,24 +24,53 @@ function ArticleDetail({
     return () => (isMounted = false);
   }, [id]);
 
+  const [fetch, handleFetch] = useState(false);
+  const fetchArticles = useCallback(() => handleFetch(!fetch), [fetch]);
+  const onDeleteArticle = useCallback(
+    (id) => {
+      articlesService
+        .remove(id)
+        .then(() => fetchArticles())
+        .catch((error) => console.error(error));
+    },
+    [fetchArticles]
+  );
+
+  
+
   return (
     article && (
-      <section className="container article-detail">
+      <section className="container article-detail bg-white">
+      <div className="col d-flex justify-content-end">
+              <i
+                role="button"
+                className="fa fa-times"
+                aria-hidden="true"
+                onClick={() => onDeleteArticle(id)}
+              />
+            </div>
         <div className="row">
           <div className="col">
-            <h2>{title}</h2>
+            <div className="row">
+              <div className="col">
+                <h2 className="article-detail-title">{article.title}</h2>
+              </div>
+              <div className="col">
+                <p>{article.author.username}</p>
+                <p>
+                  <Moment date={article.createdAt} format="LL" />
+                </p>
+                <p>Keywords: {article.keyWords.join(", ")}</p>
+              </div>
+            </div>
+            
           </div>
-          <div className="col">
-            <p>{author}</p>
-            <p>{createdAt}</p>
-            <p>{keyWords}</p>
+          <div className="summary mb-3">
+            <h4>Summary</h4>
+            <small className="text-muted">{article.summary}</small>
           </div>
+          <div>{article.content}</div>
         </div>
-        <div className="summary">
-          <h4>Summary</h4>
-          <p>{summary}</p>
-        </div>
-        <p>{content}</p>
       </section>
     )
   );

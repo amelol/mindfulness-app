@@ -1,3 +1,6 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
 function Footer() {
   return (
     <footer className="footer m-0 fixed-bottom">
@@ -5,7 +8,7 @@ function Footer() {
         <span className="text-muted">
           <div className="row">
             <div className="card bg-transparent border-0 col-4">
-              <a href="/articles">
+              <Link exact="true" to="/articles">
                 <i
                   className="fa fa-file-text-o card-img-top"
                   aria-hidden="true"
@@ -14,11 +17,11 @@ function Footer() {
                 <div className="card-body p-0">
                   <h6 className="card-title m-0">Articles</h6>
                 </div>
-              </a>
+              </Link>
             </div>
 
             <div className="card bg-transparent border-0 col-4">
-              <a href="/meditations">
+              <Link exact="true" to="/meditations">
                 <i
                   className="fa fa-headphones card-img-top"
                   aria-hidden="true"
@@ -27,11 +30,11 @@ function Footer() {
                 <div className="card-body p-0">
                   <h6 className="card-title m-0">Meditations</h6>
                 </div>
-              </a>
+              </Link>
             </div>
 
             <div className="card bg-transparent border-0 col-4">
-              <a href="/profile">
+              <Link exact="true" to="/profile">
                 <i
                   className="fa fa-user card-img-top"
                   aria-hidden="true"
@@ -40,7 +43,7 @@ function Footer() {
                 <div className="card-body p-0">
                   <h6 className="card-title m-0">Profile</h6>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </span>
