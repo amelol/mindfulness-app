@@ -1,4 +1,4 @@
-import TopArticleList from "../articles/top-articles-list/TopArticleList";
+import TopArticleList from "../articles/top-articles-list/TopArticlesList";
 
 function Home() {
   return (
