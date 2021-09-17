@@ -3,6 +3,7 @@ const Article = require("../models/article.model");
 const Meditation = require("../models/meditation.model");
 const User = require("../models/user.model");
 const faker = require("faker");
+require("dotenv").config();
 
 require("../config/db.config");
 
@@ -46,7 +47,7 @@ mongoose.connection.once("open", () => {
     .then((users) => console.info(`Successfully created ${users.length} users`))
     .then(() => {
       const authors = [];
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 10; i++) {
         const author = new User({
           name: faker.name.findName(),
           username: faker.internet.userName(),
@@ -62,7 +63,7 @@ mongoose.connection.once("open", () => {
     .then((authors) => {
       console.info(`Successfully created ${authors.length} authors`);
       const articles = [];
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 25; i++) {
         const article = new Article({
           title: faker.lorem.sentence(),
           summary: faker.lorem.paragraph(),
@@ -72,7 +73,7 @@ mongoose.connection.once("open", () => {
           type: articleTypes[Math.floor(Math.random() * articleTypes.length)],
           keyWords: keyWordsObj[Math.floor(Math.random() * 3) + 1],
           createdAt: faker.date.past(),
-          minutesRead: Math.floor(Math.random() * 90) + 1
+          minutesRead: Math.floor(Math.random() * 30) + 1
         });
         articles.push(article.save());
       }
@@ -84,11 +85,11 @@ mongoose.connection.once("open", () => {
         })
         .then((articles) => {
           const meditations = [];
-          for (let i = 0; i < 10; i++) {
+          for (let i = 0; i < 25; i++) {
             const meditation = new Meditation({
               title: faker.lorem.sentence(),
               summary: faker.lorem.paragraph(),
-              image: faker.image.abstract(),
+              image: `abstract-illustrations/${Math.floor(Math.random() * 35) + 1}.jpg`,
               duration: Math.floor(Math.random() * 60) + 1,
               type: meditationTypes[
                 Math.floor(Math.random() * meditationTypes.length)

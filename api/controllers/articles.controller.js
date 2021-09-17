@@ -2,7 +2,7 @@ const createError = require("http-errors");
 const Article = require("../models/article.model");
 
 module.exports.list = (req, res, next) => {
-  const { search } = req.query;
+  const { search, tops } = req.query;
   let criterial = {};
   if (search) {
     criterial = {
@@ -14,13 +14,19 @@ module.exports.list = (req, res, next) => {
       ],
     };
   }
+  const sort = {}
+  if (tops) {
+    sort.views = -1
+  }
   Article.find(criterial)
+    .sort(sort)
     .then((articles) => res.json(articles))
     .catch((error) => next(error));
 };
 
 module.exports.detail = (req, res, next) => {
   Article.findByIdAndUpdate(req.params.id, { $inc: { views: 1 }}, { new: true})
+    .populate("author")
     .then((article) => {
       if (!article) {
         next(createError(404, "Article not found"));
