@@ -29,8 +29,11 @@ function TopArticleList({ limit }) {
   return isLoading ? (
     <i className="fa fa-gear fa-spin" />
   ) : (
-    <section className="container">
+    <section className="container mt-4">
       <div className="row">
+        <div className="col">
+          <h2 className="ms-1 section-name">Top articles</h2>
+        </div>
         <div className="col d-flex justify-content-end">
           <Link
             role="button"
@@ -43,7 +46,7 @@ function TopArticleList({ limit }) {
         </div>
       </div>
 
-      <div className="list-group list-group m-3">
+      <div className="list-group list-group mx-1 mt-2">
         {articles.map((article) => {
           return (
             <Link
@@ -53,8 +56,8 @@ function TopArticleList({ limit }) {
               to={`/articles/${article.id}`}
             >
               <div className="fw-bold article-title">{article.title}</div>
-              <p>Keywords: {article.keyWords}</p>
-              <small className="text-muted">
+              <small>Keywords: {article.keyWords.join(", ")} </small> <br />
+              <small className="text-muted d-flex justify-content-end mt-1">
                 {article.minutesRead} minutes read
               </small>
             </Link>

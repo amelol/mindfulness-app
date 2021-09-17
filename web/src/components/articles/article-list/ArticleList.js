@@ -43,7 +43,7 @@ function ArticleList({ category, limit, tops }) {
       {Object.keys(articles).map((category) => {
         return (
           <div key={category}>
-            <div className="row">
+            <div className="row mt-4">
               <div className="col">
                 <h2 className="ms-3 article-type">{category}</h2>
               </div>
@@ -69,7 +69,7 @@ function ArticleList({ category, limit, tops }) {
                   >
                     <div className="fw-bold article-title">{article.title}</div>
                     <p>Keywords: {article.keyWords}</p>
-                    <small className="text-muted">
+                    <small className="text-muted d-flex justify-content-end">
                       {article.minutesRead} minutes read
                     </small>
                   </Link>

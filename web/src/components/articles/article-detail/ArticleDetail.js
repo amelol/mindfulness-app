@@ -36,37 +36,40 @@ function ArticleDetail({
     [fetchArticles]
   );
 
-  
-
   return (
     article && (
       <section className="container article-detail bg-white">
-      <div className="col d-flex justify-content-end">
-              <i
-                role="button"
-                className="fa fa-times"
-                aria-hidden="true"
-                onClick={() => onDeleteArticle(id)}
-              />
-            </div>
+        <div className="col d-flex justify-content-end">
+          <i
+            role="button"
+            className="fa fa-times"
+            aria-hidden="true"
+            onClick={() => onDeleteArticle(id)}
+          />
+        </div>
         <div className="row">
           <div className="col">
             <div className="row">
               <div className="col">
                 <h2 className="article-detail-title">{article.title}</h2>
               </div>
-              <div className="col">
-                <p>{article.author.username}</p>
-                <p>
-                  <Moment date={article.createdAt} format="LL" />
-                </p>
-                <p>Keywords: {article.keyWords.join(", ")}</p>
+              <div className="col text-muted">
+                <small>
+                  Author: {article.author.username}
+                </small>{" "}
+                <br />
+                <small>
+                  Keywords: {article.keyWords.join(", ")}
+                </small>{" "}
+                <br />
+                <small>
+                  Published: <Moment date={article.createdAt} format="LL" />
+                </small>
               </div>
             </div>
-            
           </div>
           <div className="summary mb-3">
-            <h4>Summary</h4>
+            <h5>Summary</h5>
             <small className="text-muted">{article.summary}</small>
           </div>
           <div>{article.content}</div>

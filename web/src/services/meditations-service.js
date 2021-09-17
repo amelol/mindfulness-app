@@ -1,8 +1,16 @@
 import http from "./base-api-service";
 
-const list = () => http.get("/meditations");
+const list = (search, tops) =>
+  http.get("/meditations", { params: { search, tops } });
 
-const service = {
+const detail = (id) => http.get(`/meditations/${id}`);
+
+const remove = (id) => http.delete(`/meditations/${id}`);
+
+const meditationsService = {
   list,
+  detail,
+  remove,
 };
-export default service;
+
+export default meditationsService;
