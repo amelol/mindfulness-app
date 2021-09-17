@@ -19,7 +19,6 @@ const meditationSchema = new Schema(
     },
     image: {
       type: String,
-      default: "default-image.jpeg",
     },
     duration: {
       type: Number,

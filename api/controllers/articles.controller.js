@@ -14,10 +14,12 @@ module.exports.list = (req, res, next) => {
       ],
     };
   }
+
   const sort = {}
   if (tops) {
     sort.views = -1
   }
+  
   Article.find(criterial)
     .sort(sort)
     .then((articles) => res.json(articles))

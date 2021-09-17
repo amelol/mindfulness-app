@@ -2,18 +2,26 @@ const createError = require("http-errors");
 const Meditation = require("../models/meditation.model");
 
 module.exports.list = (req, res, next) => {
-  const { search } = req.query;
+  const { search, tops } = req.query;
   let criterial = {};
   if (search) {
     criterial = {
       $or: [
-        { title: new RegExp(search, "i") },
-        { summary: new RegExp(search, "i") },
-        { keywords: new RegExp(search, "i") },
+        // { title: new RegExp(search, "i") },
+        // { summary: new RegExp(search, "i") },
+        // { keywords: new RegExp(search, "i") },
+        { type: new RegExp(search, "i") },
       ],
     };
   }
+
+  const sort = {};
+  if (tops) {
+    sort.views = -1;
+  }
+
   Meditation.find(criterial)
+    .sort(sort)
     .then((meditations) => res.json(meditations))
     .catch((error) => next(error));
 };
@@ -24,6 +32,7 @@ module.exports.detail = (req, res, next) => {
     { $inc: { views: 1 } },
     { new: true }
   )
+    .populate("author")
     .then((meditation) => {
       if (!meditation) {
         next(createError(404, "Meditation not found"));
@@ -47,7 +56,7 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.edit = (req, res, next) => {
-  const data = ({ title, summary, image, duration, keywords, type } = req.body);
+  const data = { title, summary, image, duration, keywords, type } = req.body;
   const meditation = req.meditation;
   Object.assign(meditation, data);
   meditation

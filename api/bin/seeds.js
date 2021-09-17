@@ -89,8 +89,11 @@ mongoose.connection.once("open", () => {
             const meditation = new Meditation({
               title: faker.lorem.sentence(),
               summary: faker.lorem.paragraph(),
-              image: `abstract-illustrations/${Math.floor(Math.random() * 35) + 1}.jpg`,
-              duration: Math.floor(Math.random() * 60) + 1,
+              image: `meditations-images/${
+                Math.floor(Math.random() * 35) + 1
+              }.jpg`,
+              audio: `meditations-sounds/${Math.floor(Math.random() * 25) + 1}.mp3`,
+              duration: Math.floor(Math.random() * 30) + 1,
               type: meditationTypes[
                 Math.floor(Math.random() * meditationTypes.length)
               ],
