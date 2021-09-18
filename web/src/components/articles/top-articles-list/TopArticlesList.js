@@ -13,7 +13,7 @@ function TopArticlesList({ limit }) {
       .list(category, tops)
       .then((articles) => {
         if (isMounted) {
-          articles = articles.slice(0, limit)
+          articles = articles.slice(0, limit);
           setState({ articles, isLoading: false });
         }
       })
@@ -31,10 +31,10 @@ function TopArticlesList({ limit }) {
   ) : (
     <section className="container mt-4">
       <div className="row">
-        <div className="col">
+        <div className="col-8">
           <h2 className="ms-1 section-name">Top articles</h2>
         </div>
-        <div className="col d-flex justify-content-end">
+        <div className="col-4 d-flex justify-content-end">
           <Link
             role="button"
             exact="true"
@@ -46,20 +46,33 @@ function TopArticlesList({ limit }) {
         </div>
       </div>
 
-      <div className="list-group list-group mx-1 mt-2">
+      <div className="card-group my-3 mx-1">
         {articles.map((article) => {
           return (
             <Link
               key={article.id}
-              className="list-group-item col-4 list-group-item-action articles-list"
+              className="card articles-list bg-light p-1"
               exact="true"
               to={`/articles/${article.id}`}
             >
-              <div className="fw-bold article-title">{article.title}</div>
-              <small>Keywords: {article.keyWords.join(", ")} </small> <br />
-              <small className="text-muted d-flex justify-content-end mt-1">
-                {article.minutesRead} minutes read
-              </small>
+              <div className="card-body">
+                <div className="fw-bold article-list-title card-title">
+                  {article.title}
+                </div>
+                <div className="card-text article-list-text">
+                  <p>
+                    <i className="fa fa-tags me-1" aria-hidden="true" />{" "}
+                    {article.keyWords.join(", ")}{" "}
+                  </p>{" "}
+                  <small className="text-muted d-flex justify-content-end mt-1">
+                    <i
+                      className="fa fa-clock-o me-1 reading-time-icon"
+                      aria-hidden="true"
+                    />{" "}
+                    {article.minutesRead} minutes read
+                  </small>
+                </div>
+              </div>
             </Link>
           );
         })}
@@ -70,7 +83,7 @@ function TopArticlesList({ limit }) {
 
 TopArticlesList.defaultProps = {
   limit: 3,
-  tops: false
+  tops: false,
 };
 
 export default TopArticlesList;
