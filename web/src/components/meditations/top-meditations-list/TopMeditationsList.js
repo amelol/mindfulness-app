@@ -27,7 +27,7 @@ function TopMeditationsList({ limit }) {
   const { meditations, isLoading } = state;
 
   return isLoading ? (
-    <i className="fa fa-gear fa-spin" />
+    <i className="fa fa-circle-o-notch fa-spin" />
   ) : (
     <section className="container mt-4">
       <div className="row">
@@ -46,20 +46,36 @@ function TopMeditationsList({ limit }) {
         </div>
       </div>
 
-      <div className="list-group list-group mx-1 mt-2">
+      <div className="card-group m-3">
         {meditations.map((meditation) => {
           return (
             <Link
               key={meditation.id}
-              className="list-group-item col-4 list-group-item-action meditations-list"
+              className="card meditations-list bg-light"
               exact="true"
               to={`/meditations/${meditation.id}`}
             >
-              <div className="fw-bold meditation-title">{meditation.title}</div>
-              <small>Keywords: {meditation.keyWords.join(", ")} </small> <br />
-              <small className="text-muted d-flex justify-content-end mt-1">
-                {meditation.minutesRead} minutes read
-              </small>
+              <div className="row g-0">
+                <div className="col-4">
+                  <img
+                    src={meditation.image}
+                    className="meditation-image-list img-fluid rounded"
+                    alt="abstract art"
+                  />
+                </div>
+                <div className="col-8">
+                  <div className="card-body">
+                    <div className="fw-bold meditation-title-list card-title">
+                      {meditation.title}
+                    </div>
+                    <div className="card-text meditation-text-list">
+                      <small className="text-muted d-flex">
+                        Duration: {meditation.duration} minutes
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </Link>
           );
         })}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import LogoImg from './../../assets/img/logo.png'
 
 function Header() {
   return (
@@ -8,7 +9,7 @@ function Header() {
         <Link className="navbar-brand" exact="true" to="/">
           <img
             alt="Mindfulness app logo"
-            src="logo.png"
+            src={LogoImg}
             className="img-fluid app-logo ms-2"
           />
         </Link>

@@ -27,7 +27,7 @@ function TopArticlesList({ limit }) {
   const { articles, isLoading } = state;
 
   return isLoading ? (
-    <i className="fa fa-gear fa-spin" />
+    <i className="fa fa-circle-o-notch fa-spin" />
   ) : (
     <section className="container mt-4">
       <div className="row">

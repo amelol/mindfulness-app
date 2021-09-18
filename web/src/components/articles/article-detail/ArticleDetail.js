@@ -55,15 +55,18 @@ function ArticleDetail({
               </div>
               <div className="col text-muted">
                 <small>
-                  Author: {article.author.username}
+                  <i className="fa fa-user-circle me-1" aria-hidden="true" />{" "}
+                  {article.author.username}
                 </small>{" "}
                 <br />
                 <small>
-                  Keywords: {article.keyWords.join(", ")}
+                  <i className="fa fa-tags me-1" aria-hidden="true" />{" "}
+                  {article.keyWords.join(", ")}
                 </small>{" "}
                 <br />
                 <small>
-                  Published: <Moment date={article.createdAt} format="LL" />
+                  <i className="fa fa-calendar me-1" aria-hidden="true" />{" "}
+                  <Moment date={article.createdAt} format="LL" />
                 </small>
               </div>
             </div>

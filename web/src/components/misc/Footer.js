@@ -7,7 +7,7 @@ function Footer() {
       <div className="container">
         <span className="text-muted">
           <div className="row">
-            <div className="card bg-transparent border-0 col-4">
+            <div className="card bg-transparent border-0 col-4 p-0">
               <Link exact="true" to="/articles">
                 <i
                   className="fa fa-file-text-o card-img-top"
@@ -20,7 +20,7 @@ function Footer() {
               </Link>
             </div>
 
-            <div className="card bg-transparent border-0 col-4">
+            <div className="card bg-transparent border-0 col-4 p-0">
               <Link exact="true" to="/meditations">
                 <i
                   className="fa fa-headphones card-img-top"
@@ -33,7 +33,7 @@ function Footer() {
               </Link>
             </div>
 
-            <div className="card bg-transparent border-0 col-4">
+            <div className="card bg-transparent border-0 col-4 p-0">
               <Link exact="true" to="/profile">
                 <i
                   className="fa fa-user card-img-top"

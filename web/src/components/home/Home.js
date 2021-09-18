@@ -1,4 +1,5 @@
-import TopArticleList from "../articles/top-articles-list/TopArticlesList";
+import TopArticlesList from "../articles/top-articles-list/TopArticlesList";
+import TopMeditationsList from "../meditations/top-meditations-list/TopMeditationsList";
 
 function Home() {
   return (
@@ -42,9 +43,11 @@ function Home() {
         </div>
       </section>
       <section className="home-articles">
-        <TopArticleList tops={true} limit={3} />
+        <TopArticlesList tops={true} limit={3} />
       </section>
-      <section className="home-meditations">aqui va meditations list</section>
+      <section className="home-meditations">
+        <TopMeditationsList tops={true} limit={3} />
+      </section>
     </>
   );
 }
