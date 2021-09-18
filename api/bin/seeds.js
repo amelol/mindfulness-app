@@ -4,8 +4,11 @@ const Meditation = require("../models/meditation.model");
 const User = require("../models/user.model");
 const faker = require("faker");
 require("dotenv").config();
-
 require("../config/db.config");
+
+
+const meditationsImages = require("../../web/src/assets/img/meditations-images.json");
+const meditationsAudios = require("../../web/src/assets/sounds/meditations-audios.json");
 
 const keyWordsObj = {
   1: ["meditation", "meditation techniques", "benefits of meditation"],
@@ -89,10 +92,14 @@ mongoose.connection.once("open", () => {
             const meditation = new Meditation({
               title: faker.lorem.sentence(),
               summary: faker.lorem.paragraph(),
-              image: `meditations-images/${
-                Math.floor(Math.random() * 35) + 1
-              }.jpg`,
-              audio: `meditations-sounds/${Math.floor(Math.random() * 25) + 1}.mp3`,
+              image:
+                meditationsImages[
+                  Math.floor(Math.random() * meditationsImages.length)
+                ],
+              audio:
+                meditationsAudios[
+                  Math.floor(Math.random() * meditationsAudios.length)
+                ],
               duration: Math.floor(Math.random() * 30) + 1,
               type: meditationTypes[
                 Math.floor(Math.random() * meditationTypes.length)
