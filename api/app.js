@@ -9,6 +9,8 @@ const cors = require("./config/cors.config");
 
 const app = express();
 
+app.use(express.static(`${__dirname}/react-app`));
+
 //Middlewares
 app.use(logger("dev"));
 app.use(cors);
@@ -18,8 +20,11 @@ app.use(express.json()); //le indicamos que formato queremos recibir
 const routes = require("./config/routes.config");
 app.use("/api", routes);
 
+app.get('/*', (req, res) => {
+  res.sendFile(`${__dirname}/react-app/index.html`);
+})
+
 // Error handling
-app.use((req, res, next) => next(createError(404, "Route not found")));
 
 app.use((error, req, res, next) => {
   if (error instanceof mongoose.Error.ValidationError) {
