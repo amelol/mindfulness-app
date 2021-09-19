@@ -40,7 +40,7 @@ function MeditationDetail({
 
   return (
     meditation && (
-      <div className="container meditation-detail bg-white">
+      <div className="container meditation-detail bg-white pb-5">
         <div className="col d-flex justify-content-end">
           <i
             role="button"
@@ -60,7 +60,9 @@ function MeditationDetail({
             />
           </div>
           <div className="col-9">
-            <h2 className="meditation-detail-title">{meditation.title}</h2>
+            <h2 className="meditation-detail-title ms-2">
+              {meditation.title}
+            </h2>
             <div className="text-muted"></div>
           </div>
         </div>
